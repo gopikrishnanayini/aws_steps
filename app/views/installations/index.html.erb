@@ -20,73 +20,118 @@
             <h5>1.LAUNCH A WEB SERVER USING AWS</h5>
              <p>2.Log in to the AWS Management Console .If you already don't have an account in the AWS ,go to sign-up page and create an account first.</p>
              <p>3.After you, log in to the console click on EC2 </p>
+             <br>
              <%= image_tag("AWS console.jpg", size: "600x450")%>
+             <br>
             <h5>4.Click on Launch Instance</h5>
+            <br>
             <%= image_tag("launch instances.com_ec2_v2_home.jpg", size: "600x450")%>
+            <br>
             <h5>5.Choose any of the machine image of your choice for this tutorial we will go with Ubuntu Server 14.04 LTS </h5>
+            <br>
             <%= image_tag("ubuntu server.jpg",size: "600x450")%>
+            <br>
             <h5>6.Choose any instance type based on your requirement</h5>
+            <br>
             <h5>7.Check on all the details then click on the Launch,Following Screen will appear </h5>
+            <br>
             <%= image_tag("key pair.png",size: "600x450")%>
+            <br>
             <h5> 8.On clicking on launch instances you will see the following page </h5>
+            <br>
             <%= image_tag("instances.jpg",size: "600x450")%>
+            <br>
             <h5>9.Now to login in to your server ,open the terminal and go to the folder where the Key pair you have downloaded is present (generally in downloads folder) and type the following command </h5>
+            <br>
             <h5>10.from ubuntu terminal</h5>
+            <br>
             <h3>ssh -i example.pem ubuntu@62.229.66.33</h5>
+            <br>
             <h5>11.INSTALL RUBY,BUNDLER AND RAILS IN SERVER</h5>
+            <br>
             <h5>Update Grep and curl</h5>
+            <br>
             <h3>sudo apt-get update</h3>
+            <br>
             <h3>sudo apt-get install -y curl gnupg build-essential</h3>
+            <br>
             <h5>12.Run the following commands to install RVM</h5>
             <h3> gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</h3>
             <h3>curl -sSL https://get.rvm.io | sudo bash -s stable</h5>
+            <br>
             <h5>13.The following code tries to auto detect whether it is necessary to install rvmsudo_secure_path=1, and only installs the environment variable if it is the code</h5>
+            <br>
             <h3> If sudo grep -q secure_path /etc/students; then sudo sh -c "echo export rvmsudo_secure_path=1 >> 
    /etc/profile.d/rvm_secure_path.sh" && echo Environment variable installed; fi</h3>
+            <br>
             <h5>14.Install latest ruby and make it default</h5>
+            <br>
             <h3>rvm install ruby-2.3.0</h3>
+            <br>
             <h3>rvm --default use ruby-2.3.0</h3>
+            <br>
             <h5>Install Bundler and rails</h5>
+            <br>
             <h3>gem install bundler</h3>
+            <br>
             <h3> gem install rails (will install current stable rails based on the ruby version)</h3>
             <h5>15.INSTALL PASSENGER </h5>
+            <br>
             <h5>The following packages will install the Passenger + Nginx through Phusion's APT repository</h5>
             <h3>sudo apt-get install -y dirmngr gnupg</h3>
+            <br>
             <h3>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7</h3>
+            <br>
             <h3>sudo apt-get install -y apt-transport-https ca-certificates</h3>
+            <br>
             <h3>sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main > /etc/apt/sources.list.d/passenger.list'</h3>
             <h3>sudo apt-get update</h3>
+            <br>
             <h5>#Install passenger+ apache module</h5>
             <h3>sudo apt-get install -y libapache2-mod-passenger</h3>
+            <br>
             <h5>16.check installation</h5>
             <h3>sudo /usr/bin/passenger-config validate-install</h3>
+            <br>
             <h5>17.Nginx + passenger installation</h5>
+            <br>
             <h3>sudo apt-get install -y nginx-extras passenger </h3>
+            <br>            
             <h5>18.Edit nginx.conf to enable the passenger</h5>
             <h3>sudo nano /etc/nginx/nginx.conf </h3>
+            <br>
             <h5>19. uncomment #include /etc/nginx/passenger.conf to comment </h5>
             <h5>Validate if Passenger was installed or not correctly:</h5>
              <%= image_tag("SH_9.png",size: "600x450")%>
+             <br> 
             <h5>20.DEPLOY RAILS APP</h5>
             <p>The best way to deploy a rails app is by adding git repository to the app <br>
             Go to the /var/www location and run git clone command</p>
             <h5>21.Install Git on server</h5>
             <h3>sudo apt install -y git</h3>
+            <br>
             <h3>sudo git clone git://github.com/username/app.git code</h3>
+            <br> 
             <h5> 22.create a path before cloning the app like /var/www/project </h5>
             <h3>sudo chown myappuser: /var/www/myapp</h3>
             <h3>ls # to the project folders</h3>
+            <br> 
             <h3> bundle install --deployment --without development test</h3>
             <h5> 23.generate a secret key </h5>
             <h3> bundle exec rake secret </h3>
+            <br>
             <h5>24.Copy the generated key and paste it into the config/secrets.yml</h5>
             <h3>sudo nano config/secrets.yml </h3>
+            <br>
             <p>25.In the file replace <%=ENV["SECRET_KEY_BASE"]%> with the secret key in production block <br>
 Create database for the app if present </p>
+            <br> 
             <h5>26.run assets precompile and migration </h5>
             <h3>bundle exec rake assets:precompile db:migrate RAILS_ENV=production</h3>
+            <br> 
             <h5>27.create nginx project conf file & run</h5>
             <h3> sudo nano /etc/ngnix/sites-enabled/myapp.conf </h3>
+            <br> 
             <h5>28.generate myapp.conf file by using touch command </h5>
             <p>Add the following code <br>
               server { <br>
@@ -94,16 +139,26 @@ Create database for the app if present </p>
               server_name yourserver.com; </p>
             <h5># Tell Nginx and Passenger where your app's 'public' directory is</h5>
             <h5> root /var/www/myapp/code/public; </h5>
+             <br>
             <p>passenger_enabled on; <br>
               passenger_ruby /path-to-ruby; <br>
               } </p>
+            <br> 
             <h5>29. in devise.rb file add config key if error occurs </h5>
+            <h5> config.secret_key = 'c54019afcd9a23e0ba87661b5f01c3b4df30df823dd4fb097eaf3e9c896b43fda41b67b5a81adafb85e87e6b5773a76c9e4d7d479eb0f5bfc3fc8757e2975218'</h5>
+            <br> 
             <h5> restart nginx server</h5>
+            <br> 
             <h5>30.Give the permission if sprockets ask </h5>
+            <br>
             <h3>sudo chmod 777 * </h3>
+            <br>
             <h3>sudo chown root:root * </h3>
+            <br>
             <h3> 31.sudo service nginx restart </h3>
+            <br>
             <h5> 32.run 62.229.66.33 in chrome or firefox then check </h5>
+             <br>
             <h3>Thank You</h3>
             <h3>Gopikrishna nayini</h3>
 
