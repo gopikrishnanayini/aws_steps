@@ -20,16 +20,16 @@
             <h5>1.LAUNCH A WEB SERVER USING AWS</h5>
              <p>2.Log in to the AWS Management Console .If you already don't have an account in the AWS ,go to sign-up page and create an account first.</p>
              <p>3.After you, log in to the console click on EC2 </p>
-             <img src= "assets/AWS console.jpg" alt="overview" style="width:32em;height:20em;">
+             <%= image_tag("AWS console.jpg", size: "600x450")%>
             <h5>4.Click on Launch Instance</h5>
-            <img src="assets/launch instances.com_ec2_v2_home.jpg" style="width:32em;height:20em;">
+            <%= image_tag("launch instances.com_ec2_v2_home.jpg", size: "600x450")%>
             <h5>5.Choose any of the machine image of your choice for this tutorial we will go with Ubuntu Server 14.04 LTS </h5>
-            <img src="assets/ubuntu server.jpg" style="width:32em;height:20em;">
+            <%= image_tag("ubuntu server.jpg",size: "600x450")%>
             <h5>6.Choose any instance type based on your requirement</h5>
             <h5>7.Check on all the details then click on the Launch,Following Screen will appear </h5>
-            <img src="assets/key pair.png" style="width:32em;height:20em;">
+            <%= image_tag("key pair.png",size: "600x450")%>
             <h5> 8.On clicking on launch instances you will see the following page </h5>
-            <img src="assets/instances.jpg" style="width:60em;height:10em;">
+            <%= image_tag("instances.jpg",size: "600x450")%>
             <h5>9.Now to login in to your server ,open the terminal and go to the folder where the Key pair you have downloaded is present (generally in downloads folder) and type the following command </h5>
             <h5>10.from ubuntu terminal</h5>
             <h3>ssh -i example.pem ubuntu@62.229.66.33</h5>
