@@ -1,0 +1,117 @@
+</<!DOCTYPE html>
+  <html>
+  <head>
+   <title>AWS Installation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <div id="panels-4-block" class="panels-4 block">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 panels-item margin-top-xs-40">
+          <div class="panels-icon text-color-theme">
+          </div> <!-- /panels-icon -->
+          <div class="panels-text">
+            <h3>DEPLOY A RAILS APP IN AWS WEB SERVER USING NGINX AND PASSENGER</h3>
+            <h5>1.LAUNCH A WEB SERVER USING AWS</h5>
+             <p>2.Log in to the AWS Management Console .If you already don't have an account in the AWS ,go to sign-up page and create an account first.</p>
+             <p>3.After you, log in to the console click on EC2 </p>
+             <img src= "assets/AWS console.jpg" alt="overview" style="width:32em;height:20em;">
+            <h5>4.Click on Launch Instance</h5>
+            <img src="assets/launch instances.com_ec2_v2_home.jpg" style="width:32em;height:20em;">
+            <h5>5.Choose any of the machine image of your choice for this tutorial we will go with Ubuntu Server 14.04 LTS </h5>
+            <img src="assets/ubuntu server.jpg" style="width:32em;height:20em;">
+            <h5>6.Choose any instance type based on your requirement</h5>
+            <h5>7.Check on all the details then click on the Launch,Following Screen will appear </h5>
+            <img src="assets/key pair.png" style="width:32em;height:20em;">
+            <h5> 8.On clicking on launch instances you will see the following page </h5>
+            <img src="assets/instances.jpg" style="width:60em;height:10em;">
+            <h5>9.Now to login in to your server ,open the terminal and go to the folder where the Key pair you have downloaded is present (generally in downloads folder) and type the following command </h5>
+            <h5>10.from ubuntu terminal</h5>
+            <h3>ssh -i example.pem ubuntu@62.229.66.33</h5>
+            <h5>11.INSTALL RUBY,BUNDLER AND RAILS IN SERVER</h5>
+            <h5>Update Grep and curl</h5>
+            <h3>sudo apt-get update</h3>
+            <h3>sudo apt-get install -y curl gnupg build-essential</h3>
+            <h5>12.Run the following commands to install RVM</h5>
+            <h3> gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</h3>
+            <h3>curl -sSL https://get.rvm.io | sudo bash -s stable</h5>
+            <h5>13.The following code tries to auto detect whether it is necessary to install rvmsudo_secure_path=1, and only installs the environment variable if it is the code</h5>
+            <h3> If sudo grep -q secure_path /etc/students; then sudo sh -c "echo export rvmsudo_secure_path=1 >> 
+   /etc/profile.d/rvm_secure_path.sh" && echo Environment variable installed; fi</h3>
+            <h5>14.Install latest ruby and make it default</h5>
+            <h3>rvm install ruby-2.3.0</h3>
+            <h3>rvm --default use ruby-2.3.0</h3>
+            <h5>Install Bundler and rails</h5>
+            <h3>gem install bundler</h3>
+            <h3> gem install rails (will install current stable rails based on the ruby version)</h3>
+            <h5>15.INSTALL PASSENGER </h5>
+            <h5>The following packages will install the Passenger + Nginx through Phusion's APT repository</h5>
+            <h3>sudo apt-get install -y dirmngr gnupg</h3>
+            <h3>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7</h3>
+            <h3>sudo apt-get install -y apt-transport-https ca-certificates</h3>
+            <h3>sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main > /etc/apt/sources.list.d/passenger.list'</h3>
+            <h3>sudo apt-get update</h3>
+            <h5>#Install passenger+ apache module</h5>
+            <h3>sudo apt-get install -y libapache2-mod-passenger</h3>
+            <h5>16.check installation</h5>
+            <h3>sudo /usr/bin/passenger-config validate-install</h3>
+            <h5>17.Nginx + passenger installation</h5>
+            <h3>sudo apt-get install -y nginx-extras passenger </h3>
+            <h5>18.Edit nginx.conf to enable the passenger</h5>
+            <h3>sudo nano /etc/nginx/nginx.conf </h3>
+            <h5>19. uncomment #include /etc/nginx/passenger.conf to comment </h5>
+            <h5>Validate if Passenger was installed or not correctly:</h5>
+            <img src="assets/SH_9.png" style="width:60em;height:20em;">
+            <h5>20.DEPLOY RAILS APP</h5>
+            <p>The best way to deploy a rails app is by adding git repository to the app <br>
+            Go to the /var/www location and run git clone command</p>
+            <h5>21.Install Git on server</h5>
+            <h3>sudo apt install -y git</h3>
+            <h3>sudo git clone git://github.com/username/app.git code</h3>
+            <h5> 22.create a path before cloning the app like /var/www/project </h5>
+            <h3>sudo chown myappuser: /var/www/myapp</h3>
+            <h3>ls # to the project folders</h3>
+            <h3> bundle install --deployment --without development test</h3>
+            <h5> 23.generate a secret key </h5>
+            <h3> bundle exec rake secret </h3>
+            <h5>24.Copy the generated key and paste it into the config/secrets.yml</h5>
+            <h3>sudo nano config/secrets.yml </h3>
+            <p>25.In the file replace <%=ENV["SECRET_KEY_BASE"]%> with the secret key in production block <br>
+Create database for the app if present </p>
+            <h5>26.run assets precompile and migration </h5>
+            <h3>bundle exec rake assets:precompile db:migrate RAILS_ENV=production</h3>
+            <h5>27.create nginx project conf file & run</h5>
+            <h3> sudo nano /etc/ngnix/sites-enabled/myapp.conf </h3>
+            <h5>28.generate myapp.conf file by using touch command </h5>
+            <p>Add the following code <br>
+              server { <br>
+              listen 80; <br>
+              server_name yourserver.com; </p>
+            <h5># Tell Nginx and Passenger where your app's 'public' directory is</h5>
+            <h5> root /var/www/myapp/code/public; </h5>
+            <p>passenger_enabled on; <br>
+              passenger_ruby /path-to-ruby; <br>
+              } </p>
+            <h5>29. in devise.rb file add config key if error occurs </h5>
+            <h5> restart nginx server</h5>
+            <h5>30.Give the permission if sprockets ask </h5>
+            <h3>sudo chmod 777 * </h3>
+            <h3>sudo chown root:root * </h3>
+            <h3> 31.sudo service nginx restart </h3>
+            <h5> 32.run 62.229.66.33 in chrome or firefox then check </h5>
+            <h3>Thank You</h3>
+            <h3>Gopikrishna nayini</h3>
+
+
+          </div> 
+        </div>
+       </div>
+    </div>
+ </div>
+  </body>
+  </html>
